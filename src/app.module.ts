@@ -29,7 +29,7 @@ import { Device } from './device/entities/device.entity';
         name: 'User_MICROSERVICE',
         transport: Transport.TCP,
         options: {
-          port: 4001,
+          port: parseInt(process.env.USER_MICROSERVICE_PORT),
         },
       },
     ]),

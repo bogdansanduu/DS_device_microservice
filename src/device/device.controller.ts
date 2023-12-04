@@ -72,8 +72,34 @@ export class DeviceController {
     return this.deviceService.associateDevice(+deviceId, associateDeviceDto);
   }
 
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles(Role.Admin, Role.User)
+  @Get('getTotalConsumptionForUser/:userId/:date')
+  getTotalConsumptionForUser(
+    @Param('userId') userId: number,
+    @Param('date') date: string,
+  ) {
+    return this.deviceService.getTotalConsumptionForUser(userId, date);
+  }
+
   @MessagePattern({ cmd: 'remove_user_devices' })
   removeUserDevices({ userId }: { userId: number }) {
     return this.deviceService.removeDevicesForUser(userId);
+  }
+
+  @MessagePattern({ cmd: 'hourly_consumption' })
+  hourlyConsumption({
+    deviceId,
+    totalConsumption,
+  }: {
+    deviceId: number;
+    totalConsumption: number;
+  }) {
+    return this.deviceService.hourlyConsumption(deviceId, totalConsumption);
+  }
+
+  @MessagePattern({ cmd: 'check_device_exists' })
+  async checkDeviceExists({ deviceId }: { deviceId: number }) {
+    return !!(await this.deviceService.findOneById(deviceId));
   }
 }
