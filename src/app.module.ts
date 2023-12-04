@@ -13,9 +13,8 @@ import { Device } from './device/entities/device.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      //host: 'host.docker.internal',
-      host: 'localhost',
-      port: 3306,
+      host: 'host.docker.internal',
+      port: parseInt(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: 'nestjs_devices',
@@ -29,6 +28,7 @@ import { Device } from './device/entities/device.entity';
         name: 'User_MICROSERVICE',
         transport: Transport.TCP,
         options: {
+          host: 'host.docker.internal',
           port: parseInt(process.env.USER_MICROSERVICE_PORT),
         },
       },

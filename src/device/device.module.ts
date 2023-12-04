@@ -14,6 +14,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
         name: 'User_MICROSERVICE',
         transport: Transport.TCP,
         options: {
+          host: 'host.docker.internal',
           port: parseInt(process.env.USER_MICROSERVICE_PORT),
         },
       },
@@ -21,6 +22,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
         name: 'Monitoring_MICROSERVICE',
         transport: Transport.TCP,
         options: {
+          host: 'host.docker.internal',
           port: parseInt(
             process.env.MONITORING_COMMUNICATION_MICROSERVICE_PORT,
           ),
